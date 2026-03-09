@@ -26,6 +26,7 @@ public class Hotel {
     private String location;
     private String about;
 
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 }
