@@ -19,5 +19,5 @@ public class UserResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    List<Rating> ratings;
+    List<RatingResponse> ratings;
 }

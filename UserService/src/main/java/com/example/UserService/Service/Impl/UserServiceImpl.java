@@ -1,7 +1,11 @@
 package com.example.UserService.Service.Impl;
 
+import com.example.UserService.Client.HotelService;
+import com.example.UserService.Client.RatingService;
 import com.example.UserService.Entity.User;
 import com.example.UserService.Exception.ResourceNotFoundException;
+import com.example.UserService.Payloads.HotelResponse;
+import com.example.UserService.Payloads.RatingResponse;
 import com.example.UserService.Payloads.UserResponse;
 import com.example.UserService.Repository.UserRepo;
 import com.example.UserService.Service.UserService;
@@ -16,6 +20,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
+    private final RatingService ratingService;
+    private final HotelService hotelService;
 
     @Override
     public UserResponse createUser(User user) {
@@ -32,12 +38,20 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserResponse convertToUserResponse(User newUser) {
+
+        List<RatingResponse> ratingResponses=ratingService.getRating(newUser.getUserId());
+        ratingResponses.forEach(rating->{
+            HotelResponse hotelResponse=hotelService.getHotelOfRating(rating.getHotelId());
+            rating.setHotel(hotelResponse);
+        });
+
         return UserResponse.builder()
                 .userId(newUser.getUserId())
                 .name(newUser.getName())
                 .email(newUser.getEmail())
                 .about(newUser.getAbout())
                 .createdAt(newUser.getCreatedAt())
+                .ratings(ratingResponses)
                 .build();
     }
 

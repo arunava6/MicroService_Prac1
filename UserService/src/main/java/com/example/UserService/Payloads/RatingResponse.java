@@ -7,11 +7,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Rating {
+public class RatingResponse {
     private String ratingId;
     private String hotelId;
     private String userId;
-    private String rating;
+    private Double rating;
     private String feedback;
-
+    private HotelResponse hotel;
 }
+
