@@ -7,7 +7,8 @@ spring:
             - id: HOTEL-SERVICE
               uri: lb://HOTEL-SERVICE
               predicates:
-                - Path=/hotel/**
+#                - Path=/hotel/**
+                - After=2026-03-12T04:25:03.966482460Z[GMT]        # This predicate is call after the specific zonedtime
 
             - id: RATING-SERVICE
               uri: lb://RATING-SERVICE
@@ -18,6 +19,5 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/user/**
-
 
 
