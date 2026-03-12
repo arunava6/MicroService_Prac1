@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: HOTEL-SERVICE
+              uri: lb://HOTEL-SERVICE
+              predicates:
+                - Path=/hotel/**
+
+            - id: RATING-SERVICE
+              uri: lb://RATING-SERVICE
+              predicates:
+                - Path=/rating/**
+
+            - id: USER-SERVICE
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user/**
+
+
+
